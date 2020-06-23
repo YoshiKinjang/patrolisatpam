@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginTop="10sp"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:id="@+id/tvRound"
+            android:text="@string/roundke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="5sp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="@string/txtMain2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <GridView
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginTop="50sp"
+            android:layout_gravity="center"
+            android:id="@+id/Mapgridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="100dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:stretchMode="spacingWidth"
+            android:horizontalSpacing="10dp"
+            />
+    </LinearLayout>
+</LinearLayout>

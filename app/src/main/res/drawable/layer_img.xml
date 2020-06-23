@@ -1,0 +1,6 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/circle_img"/>
+    <item android:drawable="@drawable/help_map"/>
+
+</layer-list>

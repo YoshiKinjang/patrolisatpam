@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:id="@+id/cvGrid"
+    app:cardBackgroundColor="@color/putihAbu"
+        android:layout_width="100sp"
+        app:cardCornerRadius="10sp"
+    android:clickable="true"
+    android:layout_margin="10dp"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="100sp">
+        <TextView
+            android:textColor="@color/gelap"
+            android:gravity="center"
+            android:id="@+id/tvAngka"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</androidx.cardview.widget.CardView>
