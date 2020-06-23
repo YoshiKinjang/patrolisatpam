@@ -132,8 +132,8 @@ object ApiLogin {
 
 object ApiUtils {
 
-    val BASE = "http://192.168.168.128/khs-erp-patroli/PatroliSatpam/api/"
-//    val BASE = "http://erp.quick.com/PatroliSatpam/api/"
+//    val BASE = "http://192.168.168.128/khs-erp-patroli/PatroliSatpam/api/"
+    val BASE = "http://erp.quick.com/PatroliSatpam/api/"
 
     val getListPos: getPos
         get() = RetrofitClient.getClient(BASE)!!.create(getPos::class.java)
