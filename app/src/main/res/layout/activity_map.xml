@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
+    tools:context=".MapActivity">
+
+    <fragment
+        android:id="@+id/mapPeta"
+        android:layout_weight="9"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+    <Button
+        android:id="@+id/btnHelpMap"
+        android:background="?android:attr/selectableItemBackground"
+        android:textSize="22sp"
+        android:textColor="@color/gelap"
+        android:text="@string/bantuan"
+        android:backgroundTint="@color/putihAbu"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+</LinearLayout>

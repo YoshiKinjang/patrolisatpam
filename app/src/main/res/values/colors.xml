@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="putih">#FFF</color>
+    <color name="gelap">#0A0A0A</color>
+    <color name="putihAbu">#FAFAFA</color>
+    <color name="ijo">#4CAF50</color>
+    <color name="ijo_muda">#00CC6A</color>
+    <color name="merah">#F44336</color>
+    <color name="oranye">#FF5722</color>
+    <color name="bprimary">#3C8DBC</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#00BCD4</color>
+</resources>

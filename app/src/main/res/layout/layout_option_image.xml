@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:weightSum="10"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_weight="9"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent">
+
+        <Button
+            android:id="@+id/btViewimg"
+            android:backgroundTint="@color/putihAbu"
+            android:textColor="@color/gelap"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/lihat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_marginTop="60sp"
+            android:id="@+id/btDelimg"
+            android:backgroundTint="@color/putihAbu"
+            android:textColor="@color/gelap"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/hapus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</LinearLayout>

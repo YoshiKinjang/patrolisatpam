@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">PatroliSatpam</string>
+    <string name="patroli">Patroli Satpam</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="scan">Scan</string>
+    <string name="pertanyaan">Pertanyaan</string>
+    <string name="temuan">Temuan</string>
+    <string name="posnum">Pos 1</string>
+    <string name="simpan">Simpan</string>
+    <string name="no_temuan">Tidak ada temuan</string>
+    <string name="txtMain1">Silahkan memilih Round!</string>
+    <string name="txtMain2">Silahkan memilih Pos!</string>
+    <string name="roundke">Round 1</string>
+    <string name="hasilScan">Hasil Scan</string>
+    <string name="kode">Kode</string>
+    <string name="waktu">Waktu</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="Ya">Ya</string>
+    <string name="Tidak">Tidak</string>
+    <string name="Mtemuan">Masukan Temuan!</string>
+    <string name="google_maps_key">AIzaSyDVbHwEWE4tqaCbrihNvzvKXVFvW74KwTY</string>
+    <string name="bantuan">Bantuan</string>
+    <string name="todo">TODO</string>
+    <string name="image">Image</string>
+    <string name="back">Kembali</string>
+    <string name="koordinat">Koordinat</string>
+    <string name="galeri">From Gallery</string>
+    <string name="camra">From Camera</string>
+    <string name="lihat">Lihat</string>
+    <string name="hapus">Hapus</string>
+    <string name="logout">Logout</string>
+    <string name="confirm">Confirm</string>
+    <string name="noindNama">Noind / Nama</string>
+    <string name="shift">Shift saat ini</string>
+    <string name="wrong_scan">QR Code yang anda scan di Pos ini Salah</string>
+    <string name="help_map">Click pada Dialog untuk Melanjutkan</string>
+    <string name="cant_scan">Tidak bisa Scan. Klik disini!!</string>
+    <string name="cant_scan2">Tidak bisa Scan</string>
+
+</resources>
