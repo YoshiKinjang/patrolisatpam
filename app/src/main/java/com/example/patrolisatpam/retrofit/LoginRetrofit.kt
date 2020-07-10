@@ -124,6 +124,13 @@ interface getQr{
     ): Call<ResponseBody>
 }
 
+interface cekTerakhir{
+    @GET("cek_pos_terakhir")
+    fun cek(
+        @Query("lokasi") lokasi: Int?
+    ): Call<ResponseBody>
+}
+
 object ApiLogin {
     val BASE_URL = "http://erp.quick.com/SiteManagement/MobileOrder/"
     val apiService: APIService
@@ -176,4 +183,7 @@ object ApiUtils {
 
     val getQrcode: getQr
         get() = RetrofitClient.getClient(BASE)!!.create(getQr::class.java)
+
+    val cekPosTerkhir: cekTerakhir
+        get() = RetrofitClient.getClient(BASE)!!.create(cekTerakhir::class.java)
 }

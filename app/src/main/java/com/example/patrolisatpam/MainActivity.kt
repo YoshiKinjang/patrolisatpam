@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.patrolisatpam.`object`.Round
 import com.example.patrolisatpam.retrofit.ApiUtils
+import com.example.patrolisatpam.retrofit.cekTerakhir
 import com.example.patrolisatpam.retrofit.getProfile
 import com.example.patrolisatpam.retrofit.getRonde
 import com.squareup.picasso.Picasso
@@ -46,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         sp = SharedPreference(this)
         statusCheck()
         getInfoPekerja()
-        getListRonde()
 
         ivProfile.setOnClickListener {
             if (noindT != null){
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 intProfile()
             }
         }
+        cekPosTerakhir()
     }
 
     fun getListRonde(refresh:Boolean = true){
@@ -81,16 +82,12 @@ class MainActivity : AppCompatActivity() {
                     adapter = MenuAdapter(this@MainActivity, menusList)
                     if(refresh)
                     gridview.adapter = adapter
-//                    for(x in 0 .. menusList.size-1){
-//                        Log.d("BESAR", menusList.get(x).angka.toString())
-//                        Log.d("BESAR2", menusList.get(x).status.toString())
-//                    }
                 }catch (e: JSONException){
                     Log.e("ERor", e.toString())
                 }
 
             }
-            override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
             }
         })
@@ -127,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
             }
         })
@@ -250,6 +247,34 @@ class MainActivity : AppCompatActivity() {
                 { dialog, id -> dialog.cancel() })
         val alert: AlertDialog = builder.create()
         alert.show()
+    }
+
+    fun cekPosTerakhir(){
+        val mAPIService: cekTerakhir
+        mAPIService = ApiUtils.cekPosTerkhir
+        mAPIService.cek(1).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                try {
+                    val ob = JSONObject(response.body()!!.string()).getString("ronde")
+                    if (!ob.equals("0")){
+                        val inten = Intent(this@MainActivity, MapActivity::class.java)
+                        val angka = ob.toInt()
+                        inten.putExtra("round", angka)
+                        sp!!.saveSPString(sp!!.ROUND_BERAPA, angka.toString());
+                        startActivity(inten);
+                    }else{
+                        getListRonde()
+                    }
+                }catch (e: JSONException){
+                    Log.e("ERore", e.toString())
+                }
+
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+            }
+        })
     }
 
     override fun onRestart() {

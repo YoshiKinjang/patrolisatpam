@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.patrolisatpam.retrofit.ApiUtils
 import com.example.patrolisatpam.retrofit.getQr
 import com.google.zxing.Result
+import kotlinx.android.synthetic.main.activity_scan.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -31,11 +32,16 @@ class ScanActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         val actionBar = supportActionBar
         actionBar!!.title = "Patroli Satpam - Scan Barcode"
         actionBar!!.setDisplayHomeAsUpEnabled(true);
-        mScannerView = ZXingScannerView(this)
-//        mScannerView!!.flash = true
+        setContentView(R.layout.activity_scan);
+//        mScannerView = ZXingScannerView(this)
+        mScannerView = findViewById(R.id.zxscan)
         sp = SharedPreference(this)
-        setContentView(mScannerView);
+//        setContentView(mScannerView);
         getKode();
+        btn_flash.setOnClickListener {
+//            mScannerView!!.flash = true
+            mScannerView!!.toggleFlash()
+        }
     }
 
     fun getKode(){
