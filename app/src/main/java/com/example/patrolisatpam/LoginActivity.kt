@@ -1,18 +1,20 @@
 package com.example.patrolisatpam
 
 
+import android.Manifest
 import android.content.Intent
-import android.graphics.Bitmap
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.patrolisatpam.retrofit.APIService
 import com.example.patrolisatpam.retrofit.ApiLogin
-import com.google.maps.android.ui.IconGenerator
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
@@ -46,6 +48,15 @@ class LoginActivity : AppCompatActivity() {
                 cobaLogin(username, password);
                 btnLogin!!.isClickable = false;
             }
+        }
+
+        cek_permission()
+    }
+
+    fun cek_permission(){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 0)
         }
     }
 

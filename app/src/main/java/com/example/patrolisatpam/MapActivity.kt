@@ -53,7 +53,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         actionBar!!.title = "Patroli Satpam - Round "+angkaRound
         actionBar!!.subtitle = "Silahkan Memilih Pos"
         actionBar!!.setDisplayHomeAsUpEnabled(false);
-
+        isComplete = false
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.mapPeta) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
@@ -62,8 +62,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         btnHelp.setOnClickListener {
             dialog()
         }
-
-        cekRondeIni()
+//        cekRondeIni()
     }
 
     fun dialog(){
@@ -126,6 +125,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     fun daftarListPos(){
+        isComplete = false
+//        cekRondeIni()// cek juga hehe
         ggMap!!.clear()
         markerList.clear()
         var mAPIService: getPos? =  null
@@ -138,6 +139,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 try {
                     val St = response.body()!!.string()
                     val ob = JSONArray(St)
+                    val len:Int = ob.length()
+                    var len2 = 0;
                     for (i in 0 until ob.length()) {
                         val obj: JSONObject = ob.getJSONObject(i)
                         val lok: String = obj.getString("lokasi")
@@ -145,13 +148,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         val lat: Double = obj.getString("latitude").toDouble()
                         val long: Double = obj.getString("longitude").toDouble()
                         val status: Int = obj.getString("status").toInt()
-                        if (status==2)
+                        if (status==2){
                             markerList.add(markerz(lat, long,"Pos "+id, lok, BitmapDescriptorFactory.HUE_GREEN))
-                        else if (status == 1)
+                            len2++;
+                        }else if (status == 1){
                             markerList.add(markerz(lat, long,"Pos "+id, lok, BitmapDescriptorFactory.HUE_YELLOW))
-                        else
+                        }else{
                             markerList.add(markerz(lat, long,"Pos "+id, lok, BitmapDescriptorFactory.HUE_RED))
+                        }
                     }
+                    if (len == len2) isComplete = true
+                    else isComplete = false
                     for(x in 0..markerList.size-1){
                         ggMap!!.addMarker(
                             MarkerOptions()
@@ -184,16 +191,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 try {
                     val St = response.body()!!.string()
-                    val arr = JSONObject(St).getString("ronde")
-                    val ob = JSONArray(arr)
+                    val ob = JSONObject(St).getString("selesai")
                     Log.d("SESELUM", ob.toString())
-                    if (ob.length() > 0){
-                        val obj = ob.getJSONObject(0).getString("selesai")
-                        if (obj.equals("1")){
-                            isComplete = true
-                            actionBar!!.setDisplayHomeAsUpEnabled(true);
-                        }
+                    if (ob.equals("1")){
+                        isComplete = true
+                        actionBar!!.setDisplayHomeAsUpEnabled(true);
+                    }else{
+                        isComplete = false
                     }
+
                 }catch (e: JSONException){
                     Log.e("LOKASINYA", e.message.toString())
                 }
@@ -212,13 +218,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         with(builder) {
             setTitle("Anda tidak bisa kembali!")
             setMessage("Masih ada pos yang terlewati!")
-            setNeutralButton("Mengerti", null)
+            setPositiveButton("Mengerti", null)
         }
         val alertDialog = builder.create()
         alertDialog.show()
-        val buttonNeu = alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL)
+        val buttonNeu = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
         with(buttonNeu) {
-            setTextColor(android.graphics.Color.DKGRAY)
+            setTextColor(Color.DKGRAY)
         }
     }
 

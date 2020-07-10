@@ -91,12 +91,13 @@ class PosActivity : AppCompatActivity() {
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
-            }else if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            }else if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
             }else {
                 if (scan){
                     val i = Intent(this, TemuanActivity::class.java)
+                    i.putExtra("idPatroli", idPatroli)
                     startActivityForResult(i, 100)
                 }else{
                     Toast.makeText(this,"Harap Melakukan Scan dahulu!!", Toast.LENGTH_SHORT).show()
