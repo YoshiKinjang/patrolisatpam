@@ -12,7 +12,7 @@ import retrofit2.http.*
 
 //sebenarnya bukan cuman untuk login tp nama filenya terlanjur login :V
 interface APIService {
-    @POST("login")
+    @POST("login_satpam")
     @FormUrlEncoded
     fun registrationPost(@Field("username") username: String,
                          @Field("password") password: String): Call<ResponseBody>
@@ -132,9 +132,10 @@ interface cekTerakhir{
 }
 
 object ApiLogin {
-    val BASE_URL = "http://erp.quick.com/SiteManagement/MobileOrder/"
+//        val BASE = "http://192.168.168.128/khs-erp-patroli/PatroliSatpam/api/"
+    val BASE = "http://erp.quick.com/PatroliSatpam/api/"
     val apiService: APIService
-        get() = RetrofitClient.getClient(BASE_URL)!!.create(APIService::class.java)
+        get() = RetrofitClient.getClient(BASE)!!.create(APIService::class.java)
 }
 
 object ApiUtils {

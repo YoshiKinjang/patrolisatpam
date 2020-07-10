@@ -141,6 +141,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     val ob = JSONArray(St)
                     val len:Int = ob.length()
                     var len2 = 0;
+                    var len4 = 0;
                     for (i in 0 until ob.length()) {
                         val obj: JSONObject = ob.getJSONObject(i)
                         val lok: String = obj.getString("lokasi")
@@ -155,9 +156,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                             markerList.add(markerz(lat, long,"Pos "+id, lok, BitmapDescriptorFactory.HUE_YELLOW))
                         }else{
                             markerList.add(markerz(lat, long,"Pos "+id, lok, BitmapDescriptorFactory.HUE_RED))
+                            len4++;
                         }
                     }
-                    if (len == len2) isComplete = true
+                    //intinya kalau hijau semua atau merah semua bisa kembali
+                    if (len == len2 || len == len4) isComplete = true
                     else isComplete = false
                     for(x in 0..markerList.size-1){
                         ggMap!!.addMarker(
