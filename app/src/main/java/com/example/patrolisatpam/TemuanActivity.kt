@@ -27,10 +27,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.patrolisatpam.retrofit.ApiUtils
-import com.example.patrolisatpam.retrofit.getImg
-import com.example.patrolisatpam.retrofit.insTemuan
-import com.example.patrolisatpam.retrofit.upImg
+import com.example.patrolisatpam.retrofit.*
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
 import com.squareup.picasso.Picasso
@@ -67,6 +64,10 @@ class TemuanActivity : AppCompatActivity() {
     var long:String? = null
     var sp:SharedPreference? = null
 
+    var noind:String? = null
+    var ronde:String? = null
+    var pos:String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_temuan)
@@ -74,6 +75,9 @@ class TemuanActivity : AppCompatActivity() {
         actionBar!!.title = "Patroli Satpam - Temuan"
 
         sp = SharedPreference(this)
+        noind = sp!!.getValueString(sp!!.USERNYA)
+        ronde = sp!!.getValueString(sp!!.ROUND_BERAPA)
+        pos = sp!!.getValueString(sp!!.POS_BERAPA)
 
         tvlTemuan = findViewById(R.id.tvLokasiTemuan) as TextView
         etTemuan = findViewById(R.id.etTemuan) as EditText
@@ -85,6 +89,8 @@ class TemuanActivity : AppCompatActivity() {
         val hide = intent.getBooleanExtra("hideNoTemuan", false)
         if (hide){
             btNotemuan.visibility = View.GONE
+        }else{
+            cekKodeLagi()
         }
         if (done){
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -206,7 +212,6 @@ class TemuanActivity : AppCompatActivity() {
         btSaveTemuan!!.setOnClickListener {
             Log.i("Temuan", etTemuan!!.text.toString())
             val isi = etTemuan!!.text.toString()
-            val noind = sp!!.getValueString(sp!!.USERNYA)
             val id = intent.getIntExtra("idPatroli", 0)
             if(isi.length > 9){
                 setResult(Activity.RESULT_OK, Intent())
@@ -518,6 +523,28 @@ class TemuanActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return file
+    }
+
+    fun cekKodeLagi(){
+        var mAPIService: cekPos? = null
+        mAPIService = ApiUtils.checkPos
+        mAPIService!!.cekAktivityPos(noind, ronde, pos).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                try {
+                    val St = response.body()!!.string()
+                    val ob = JSONArray(St).getJSONObject(0)
+                    if (ob.getString("kode").equals("Tidak Scan", true))
+                        btNotemuan.visibility = View.GONE
+                }catch (e : JSONException){
+                    Log.e("CEKPOS", e.toString()+"")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

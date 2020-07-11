@@ -125,6 +125,7 @@ class TidakScanActivity : AppCompatActivity() {
                         Toast.makeText(this@TidakScanActivity, "Berhasil Input!", Toast.LENGTH_SHORT).show();
                         val i = Intent(this@TidakScanActivity, PertanyaanActivity::class.java)
                         i.putExtra("idPatroli", outputJson.getString("id").toInt())
+                        i.putExtra("hideNoTemuan",true)
                         startActivityForResult(i, 100)
                         finish()
                     }else{
