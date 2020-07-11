@@ -30,6 +30,7 @@ class PertanyaanActivity : AppCompatActivity() {
     var done:Boolean = false
     var yaSemua: Boolean = true
     var id_patroli:Int? = null
+    var noScan:Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val actionBar = supportActionBar
@@ -38,6 +39,7 @@ class PertanyaanActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(false);
         setContentView(R.layout.activity_pertanyaan)
         id_patroli = intent.getIntExtra("idPatroli", 0)
+        noScan = intent.getBooleanExtra("hideNoTemuan", false)
         done = intent.getBooleanExtra("done", false);
         addView()
     }
@@ -186,6 +188,7 @@ class PertanyaanActivity : AppCompatActivity() {
                         Toast.makeText(this@PertanyaanActivity, res.getString("pesan"), Toast.LENGTH_SHORT).show()
                         val i = Intent(this@PertanyaanActivity, TemuanActivity::class.java)
                         i.putExtra("idPatroli", id_patroli)
+                        i.putExtra("hideNoTemuan", noScan)
                         startActivityForResult(i, 100)
                         finish()
                     }else{

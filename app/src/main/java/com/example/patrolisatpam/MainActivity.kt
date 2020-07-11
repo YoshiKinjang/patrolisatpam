@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getListRonde(refresh:Boolean = true){
-        var mAPIService: getRonde? = null
+        var mAPIService: getRonde?
         mAPIService = ApiUtils.getRound
         mAPIService.ronde().enqueue(object :
             Callback<ResponseBody> {
