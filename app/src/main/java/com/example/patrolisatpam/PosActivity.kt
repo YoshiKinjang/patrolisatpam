@@ -41,6 +41,7 @@ class PosActivity : AppCompatActivity() {
     var scan:Boolean = false
     var idPatroli:Int? = null
     var btCantScan: Button? = null
+    var hideNoTemuan: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pos)
@@ -98,6 +99,7 @@ class PosActivity : AppCompatActivity() {
                 if (scan){
                     val i = Intent(this, TemuanActivity::class.java)
                     i.putExtra("idPatroli", idPatroli)
+                    i.putExtra("hideNoTemuan", hideNoTemuan)
                     startActivityForResult(i, 100)
                 }else{
                     Toast.makeText(this,"Harap Melakukan Scan dahulu!!", Toast.LENGTH_SHORT).show()
@@ -168,6 +170,9 @@ class PosActivity : AppCompatActivity() {
                             i.putExtra("long", ob.getString("longitude"))
                             startActivity(i);
                         }
+                        if (ob.getString("kode").equals("Tidak Scan", true))
+                            hideNoTemuan = true
+
                         this@PosActivity.getCekTemuan()
                         this@PosActivity.getCekPertanyaan()
                     }else{
