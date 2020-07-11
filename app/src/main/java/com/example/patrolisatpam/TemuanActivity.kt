@@ -82,6 +82,10 @@ class TemuanActivity : AppCompatActivity() {
         val Vie = findViewById(R.id.v_penengah) as View
 
         val done = intent.getBooleanExtra("done", false)
+        val hide = intent.getBooleanExtra("hideNoTemuan", false)
+        if (hide){
+            btNotemuan.visibility = View.GONE
+        }
         if (done){
             actionBar.setDisplayHomeAsUpEnabled(true);
             lat = intent.getStringExtra("lat")
