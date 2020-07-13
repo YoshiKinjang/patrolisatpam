@@ -140,7 +140,7 @@ class ScanResultActivity : AppCompatActivity() {
     }
 
     fun getTanggal(): String {
-        val sdf = SimpleDateFormat("yyyy/MM/dd hh:mm:ss")
+        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
         val currentDate = sdf.format(Date())
         return currentDate;
     }
