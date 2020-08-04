@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TidakScanActivity"></activity>
+        <service android:name=".ServiceActivity" />
+        <activity android:name=".TidakScanActivity" />
         <activity android:name=".WrongActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".TemuanImageActivity" />

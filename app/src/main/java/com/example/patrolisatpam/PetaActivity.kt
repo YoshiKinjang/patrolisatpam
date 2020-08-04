@@ -28,7 +28,7 @@ class PetaActivity : AppCompatActivity() {
         tvPos.setText("Round "+angkaRound);
 
         for (x in 1..18){
-            menusList.add(Round(x, 0))
+//            menusList.add(Round(x, 0))
         }
         adapter = PetaActivity.MenuAdapter(this, menusList)
         Mapgridview.adapter = adapter
