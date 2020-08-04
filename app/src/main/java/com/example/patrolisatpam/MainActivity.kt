@@ -41,10 +41,13 @@ class MainActivity : AppCompatActivity() {
     var noindT: String? = null
     var namaT: String? = null
     var urlprofile: String? = null
+    var sLast: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sp = SharedPreference(this)
+        val intent = Intent(this, ServiceActivity::class.java)
+        startService(intent)
         statusCheck()
         getInfoPekerja()
 
@@ -70,14 +73,20 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val ob = JSONObject(response.body()!!.string())
                     val max = ob.getString("max_ronde")
+                    val z = ob.getString("enable").toInt()
                     val arr = JSONArray(ob.getString("ronde"))
                     for (x in 1..max.toInt()){
-                        menusList.add(Round(x,0))
+                        menusList.add(Round(x,0, 0))
                     }
                     for (i in 0 until arr.length()) {
                         val ronde = arr.getJSONObject(i).getString("ronde").toInt()
-                        val selesai = arr.getJSONObject(i).getString("selesai").toInt()
-                        menusList.set(ronde-1, Round(ronde, selesai))
+                        var selesai = arr.getJSONObject(i).getString("selesai").toInt()
+                        var enable = 0
+                        if (sLast-1 >= i) selesai = 1
+                        if (sLast >= i) enable = 1
+                        Log.d("SLAST",sLast.toString()+"-"+i)
+//                        if (z == i) enable = 1
+                        menusList.set(ronde-1, Round(ronde, selesai, enable))
                     }
                     adapter = MenuAdapter(this@MainActivity, menusList)
                     if(refresh)
@@ -203,6 +212,10 @@ class MainActivity : AppCompatActivity() {
                 menuView.cvGrid.setOnClickListener {
                     Toast.makeText(context, "Round ini telah selesai!!", Toast.LENGTH_SHORT).show()
                 }
+            }else if (menu.enable == 0){
+                menuView.cvGrid.setOnClickListener {
+                    Toast.makeText(context, "Round ini belum bisa di mulai!!", Toast.LENGTH_SHORT).show()
+                }
             }else{
                 menuView.cvGrid.setOnClickListener {
                     menuView.cvGrid.isClickable = false
@@ -256,15 +269,47 @@ class MainActivity : AppCompatActivity() {
             Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 try {
-                    val ob = JSONObject(response.body()!!.string()).getString("ronde")
+                    val obj = JSONObject(response.body()!!.string())
+                    val ob = obj.getString("ronde")
+                    val al = obj.getString("alret")
+                    val alm = obj.getString("alert_message")
+                    val alt = obj.getString("alert_title")
+                    val ls = obj.getString("last").toInt()
+                    val inten = Intent(this@MainActivity, MapActivity::class.java)
+                    val angka = ob.toInt()
+                    sp!!.saveSPString(sp!!.ROUND_BERAPA, angka.toString());
+                    sLast = ls
                     if (!ob.equals("0")){
-                        val inten = Intent(this@MainActivity, MapActivity::class.java)
-                        val angka = ob.toInt()
                         inten.putExtra("round", angka)
-                        sp!!.saveSPString(sp!!.ROUND_BERAPA, angka.toString());
                         startActivity(inten);
                     }else{
-                        getListRonde()
+                        if(al == "1"){
+                            val builder = AlertDialog.Builder(this@MainActivity, R.style.AlertDialog)
+                            val inflater: LayoutInflater = getLayoutInflater();
+                            with(builder) {
+                                setTitle(alt)
+                                setMessage(alm)
+                                setPositiveButton("Lanjutkan"){ dialog, which ->
+                                    inten.putExtra("round", ls)
+                                    startActivity(inten);
+                                }
+                                setNegativeButton("Tidak"){ dialog, which ->
+                                    getListRonde()
+                                }
+                            }
+                            builder.setCancelable(false)
+                            val alertDialog = builder.create()
+                            alertDialog.setCanceledOnTouchOutside(false)
+                            alertDialog.show()
+                            val lanjut = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+                            val tdk = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE)
+                            with(lanjut) {
+                                setTextColor(Color.DKGRAY)
+                            }
+                            with(tdk) {
+                                setTextColor(Color.DKGRAY)
+                            }
+                        }
                     }
                 }catch (e: JSONException){
                     Log.e("ERore", e.toString())
@@ -279,8 +324,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        menusList.clear()
-        getListRonde()
+//        menusList.clear()
+//        getListRonde()
+        finish();
+        startActivity(getIntent())
     }
 }
 

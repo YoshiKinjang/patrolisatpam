@@ -160,8 +160,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
                     }
                     //intinya kalau hijau semua atau merah semua bisa kembali
-                    if (len == len2 || len == len4) isComplete = true
-                    else isComplete = false
+                    if (len == len2 || len == len4) {
+                        isComplete = true
+                        actionBar!!.setDisplayHomeAsUpEnabled(true)
+                    }else{
+                        isComplete = false
+                        actionBar!!.setDisplayHomeAsUpEnabled(false)
+                    }
                     for(x in 0..markerList.size-1){
                         ggMap!!.addMarker(
                             MarkerOptions()
@@ -201,6 +206,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                         actionBar!!.setDisplayHomeAsUpEnabled(true);
                     }else{
                         isComplete = false
+                        actionBar!!.setDisplayHomeAsUpEnabled(false);
                     }
 
                 }catch (e: JSONException){
