@@ -309,6 +309,8 @@ class MainActivity : AppCompatActivity() {
                             with(tdk) {
                                 setTextColor(Color.DKGRAY)
                             }
+                        }else{
+                            getListRonde()
                         }
                     }
                 }catch (e: JSONException){
