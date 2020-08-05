@@ -277,9 +277,9 @@ class MainActivity : AppCompatActivity() {
                     val ls = obj.getString("last").toInt()
                     val inten = Intent(this@MainActivity, MapActivity::class.java)
                     val angka = ob.toInt()
-                    sp!!.saveSPString(sp!!.ROUND_BERAPA, angka.toString());
                     sLast = ls
                     if (!ob.equals("0")){
+                        sp!!.saveSPString(sp!!.ROUND_BERAPA, angka.toString());
                         inten.putExtra("round", angka)
                         startActivity(inten);
                     }else{
@@ -290,6 +290,7 @@ class MainActivity : AppCompatActivity() {
                                 setTitle(alt)
                                 setMessage(alm)
                                 setPositiveButton("Lanjutkan"){ dialog, which ->
+                                    sp!!.saveSPString(sp!!.ROUND_BERAPA, ls.toString());
                                     inten.putExtra("round", ls)
                                     startActivity(inten);
                                 }
